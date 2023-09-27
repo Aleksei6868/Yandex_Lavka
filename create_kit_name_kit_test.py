@@ -1,3 +1,4 @@
+
 import pytest
 
 import sender_stand_request
@@ -11,7 +12,7 @@ from sender_stand_request import token
                                       pytest.param("Мария"),
                                       pytest.param(" Человек и КО "),
                                       pytest.param("123"),
-                                      pytest.param("№%@,")
+                                      pytest.param(''"№%@,"'')
                                       ])
 def test_positive_assert(name_kit):
     sender_stand_request.post_new_user()
@@ -24,10 +25,10 @@ def test_positive_assert(name_kit):
     assert act == ext
 
 
-@pytest.mark.parametrize("kit_name", [(""),
-                                      ("AbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdAbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcD"),
-                                      (),
-                                      (123)])
+@pytest.mark.parametrize("kit_name", [pytest.param(""),
+                                      pytest.param("AbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdAbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcD"),
+                                      pytest.param(sender_stand_request.noname),
+                                      pytest.param(123)])
 def test_negative_assert_code_400(kit_name):
     sender_stand_request.post_new_user()
     body = sender_stand_request.get_kit_body(kit_name)
